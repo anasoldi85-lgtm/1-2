@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEENMIN | Financial Information Consulting Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        :root {
+            --primary: #0066CC;
+            --secondary-bg: #94B8E6;
+            --accent: #FF8800;
+            --neutral-bg: #F8FAFD;
+            --dark-text: #222831;
+            --light-text: #ffffff;
+        }
+        body {
+            color: var(--dark-text);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        .logo-text {
+            color: var(--light-text);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        nav ul {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: var(--accent);
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        /* Mobile Nav */
+        .mobile-nav-wrap {
+            position: fixed;
+            top:70px;
+            left:0;
+            width:100%;
+            height:0;
+            overflow:hidden;
+            background: var(--primary);
+            transition: height 0.4s ease;
+            z-index:998;
+        }
+        .mobile-nav-wrap.active {
+            height: calc(100vh - 70px);
+        }
+        .mobile-nav-list {
+            padding:40px 30px;
+            display:flex;
+            flex-direction:column;
+            gap:25px;
+        }
+        .mobile-nav-list a {
+            font-size:18px;
+            color:#fff;
+            text-decoration:none;
+        }
+        /* Hero Section */
+        .hero {
+            margin-top:70px;
+            width:100%;
+            min-height:85vh;
+            background: linear-gradient(135deg, rgba(0,102,204,0.92), rgba(148,184,230,0.75)), url('https://anasoldi85-lgtm.github.io/1-2/6.jpg');
+            background-size: cover;
+            background-position: center;
+            display:flex;
+            align-items:center;
+        }
+        .hero-inner {
+            max-width:1300px;
+            margin:0 auto;
+            padding:0 20px;
+            color:#fff;
+        }
+        .hero h1 {
+            font-size:52px;
+            margin-bottom:22px;
+            line-height:1.2;
+        }
+        .hero p {
+            font-size:19px;
+            max-width:620px;
+            margin-bottom:35px;
+            opacity:0.95;
+            line-height:1.7;
+        }
+        .btn-primary {
+            background:var(--accent);
+            color:#fff;
+            border:none;
+            padding:15px 34px;
+            border-radius:6px;
+            font-size:16px;
+            font-weight:500;
+            cursor:pointer;
+            transition:all 0.3s;
+            text-decoration:none;
+            display:inline-block;
+        }
+        .btn-primary:hover {
+            background:#e67a00;
+            transform: translateY(-2px);
+            box-shadow:0 6px 15px rgba(255,136,0,0.3);
+        }
+        /* Common Section Style */
+        section {
+            padding:90px 20px;
+        }
+        .container {
+            max-width:1300px;
+            margin:0 auto;
+        }
+        .section-head {
+            text-align:center;
+            margin-bottom:60px;
+        }
+        .section-head h2 {
+            font-size:36px;
+            color:var(--primary);
+            margin-bottom:14px;
+        }
+        .section-head span {
+            display:inline-block;
+            width:70px;
+            height:4px;
+            background:var(--accent);
+            border-radius:3px;
+        }
+        .section-head p {
+            margin-top:18px;
+            color:#555;
+            max-width:700px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        /* About Us Section */
+        .about-row {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:50px;
+            align-items:center;
+        }
+        .about-img-box {
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 12px 30px rgba(0,102,204,0.18);
+        }
+        .about-img-box img {
+            width:100%;
+            display:block;
+        }
+        .about-content h3 {
+            font-size:28px;
+            color:var(--primary);
+            margin-bottom:20px;
+        }
+        .about-content h4 {
+            font-size:22px;
+            color:var(--primary);
+            margin: 25px 0 15px;
+        }
+        .about-content p {
+            line-height:1.8;
+            color:#444;
+            margin-bottom:16px;
+        }
+        .about-content ul {
+            margin: 15px 0 25px 20px;
+            color: #444;
+            line-height: 1.8;
+        }
+        .about-content ul li {
+            margin-bottom: 8px;
+        }
+        .data-module {
+            background:var(--secondary-bg);
+            padding:25px;
+            border-radius:8px;
+            margin-top:30px;
+        }
+        .data-item {
+            display:flex;
+            justify-content:space-between;
+            padding:12px 0;
+            border-bottom:1px solid rgba(255,255,255,0.35);
+        }
+        .data-item:last-child {
+            border-bottom:none;
+        }
+        .data-label {
+            background:var(--neutral-bg);
+            padding:6px 12px;
+            border-radius:4px;
+            font-size:14px;
+        }
+        .data-value {
+            color:var(--accent);
+            font-weight:700;
+            font-size:17px;
+        }
+        /* Service Section */
+        #services {
+            background:var(--neutral-bg);
+        }
+        .services-grid {
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:30px;
+        }
+        .service-card {
+            background:#fff;
+            padding:35px 28px;
+            border-radius:10px;
+            box-shadow:0 6px 22px rgba(0,102,204,0.1);
+            transition:transform 0.3s ease;
+        }
+        .service-card:hover {
+            transform:translateY(-8px);
+        }
+        .service-icon {
+            width:58px;
+            height:58px;
+            background:var(--accent);
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#fff;
+            font-size:26px;
+            margin-bottom:22px;
+        }
+        .service-card h4 {
+            font-size:21px;
+            color:var(--primary);
+            margin-bottom:15px;
+        }
+        .service-card p {
+            line-height:1.7;
+            color:#555;
+            margin-bottom: 15px;
+        }
+        .service-card ul {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.7;
+        }
+        .service-card ul li {
+            margin-bottom: 6px;
+        }
+        /* Company Advantage */
+        .advantage-grid {
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:24px;
+        }
+        .adv-card {
+            text-align:center;
+            padding:30px 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow:0 6px 22px rgba(0,102,204,0.08);
+            transition: transform 0.3s ease;
+        }
+        .adv-card:hover {
+            transform: translateY(-5px);
+        }
+        .adv-num {
+            font-size:46px;
+            color:var(--accent);
+            font-weight:700;
+            margin-bottom: 10px;
+        }
+        .adv-card h5 {
+            font-size:18px;
+            margin:12px 0;
+            color:var(--primary);
+        }
+        .adv-card p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        .adv-card .adv-detail {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+        /* Contact Page Section */
+        #contact {
+            background:var(--neutral-bg);
+        }
+        .contact-wrap {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:50px;
+        }
+        .contact-info h3 {
+            font-size:26px;
+            color:var(--primary);
+            margin-bottom:25px;
+        }
+        .contact-item {
+            margin-bottom:22px;
+            display:flex;
+            gap:15px;
+            align-items:flex-start;
+        }
+        .contact-icon-box {
+            width:44px;
+            height:44px;
+            background:var(--primary);
+            color:#fff;
+            border-radius:6px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-shrink:0;
+        }
+        .contact-text h6 {
+            font-size:16px;
+            margin-bottom:6px;
+            color:#222;
+        }
+        .contact-text p {
+            color:#555;
+            line-height:1.6;
+        }
+        .contact-text .contact-note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        /* Contact Form */
+        .contact-form {
+            background:#fff;
+            padding:35px;
+            border-radius:10px;
+            box-shadow:0 8px 25px rgba(0,102,204,0.12);
+        }
+        .form-group {
+            margin-bottom:22px;
+        }
+        .form-group label {
+            display:block;
+            margin-bottom:8px;
+            font-weight:500;
+            color:#333;
+        }
+        .form-group input,
+        .form-group textarea {
+            width:100%;
+            padding:13px 15px;
+            border:1px solid #ddd;
+            border-radius:5px;
+            font-size:15px;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline:none;
+            border-color:var(--primary);
+            box-shadow:0 0 0 3px rgba(0,102,204,0.15);
+        }
+        .submit-msg {
+            display:none;
+            margin-top:18px;
+            padding:14px;
+            background:#dff6e9;
+            color:#1b7c3c;
+            border-radius:5px;
+            text-align:center;
+        }
+        /* Footer */
+        footer {
+            background:var(--primary);
+            color:#fff;
+            padding:55px 20px 25px;
+        }
+        .footer-grid {
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:40px;
+            max-width:1300px;
+            margin:0 auto 40px;
+        }
+        .footer-col h4 {
+            font-size:20px;
+            margin-bottom:22px;
+            position:relative;
+            padding-bottom:10px;
+        }
+        .footer-col h4::after {
+            content:"";
+            position:absolute;
+            left:0;
+            bottom:0;
+            width:45px;
+            height:3px;
+            background:var(--accent);
+        }
+        .footer-col p,
+        .footer-col a {
+            color:rgba(255,255,255,0.82);
+            line-height:1.8;
+            text-decoration:none;
+        }
+        .footer-col ul {
+            list-style:none;
+        }
+        .footer-col li {
+            margin-bottom:10px;
+        }
+        .footer-col .footer-desc {
+            margin-bottom: 20px;
+        }
+        .footer-col .footer-contact {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .copyright {
+            text-align:center;
+            padding-top:25px;
+            border-top:1px solid rgba(255,255,255,0.18);
+            color:rgba(255,255,255,0.7);
+            font-size:14px;
+        }
+        /* Responsive Mobile */
+        @media(max-width:992px) {
+            nav ul {
+                display:none;
+            }
+            .mobile-menu-btn {
+                display:block;
+            }
+            .about-row,
+            .contact-wrap {
+                grid-template-columns:1fr;
+            }
+            .services-grid {
+                grid-template-columns:repeat(2,1fr);
+            }
+            .advantage-grid {
+                grid-template-columns:repeat(2,1fr);
+            }
+            .footer-grid {
+                grid-template-columns:1fr;
+            }
+            .hero h1 {
+                font-size:36px;
+            }
+        }
+        @media(max-width:576px) {
+            .services-grid {
+                grid-template-columns:1fr;
+            }
+            .advantage-grid {
+                grid-template-columns:1fr;
+            }
+            section {
+                padding:60px 15px;
+            }
+            .hero h1 {
+                font-size:30px;
+            }
+            .section-head h2 {
+                font-size:28px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Header Navigation -->
+<header>
+    <div class="nav-container">
+        <div class="logo-text">DEENMIN</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Our Services</a></li>
+                <li><a href="#advantages">Company Advantages</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </nav>
+    </div>
+</header>
+<!-- Mobile Navigation Menu -->
+<div class="mobile-nav-wrap" id="mobileNav">
+    <div class="mobile-nav-list">
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#services">Our Services</a>
+        <a href="#advantages">Company Advantages</a>
+        <a href="#contact">Contact Us</a>
+    </div>
+</div>
+
+<!-- Hero Home Section -->
+<section class="hero" id="home">
+    <div class="hero-inner">
+        <h1>Professional Global Financial Information Consulting</h1>
+        <p>DEENMIN delivers reliable, customized financial consulting solutions for institutions, enterprises and individual investors across the United Kingdom and global financial markets. Our comprehensive service portfolio covers financial market analysis, corporate financial consulting, personal investment advisory, cross-border finance consulting, risk control and due diligence services.</p>
+        <a href="#contact" class="btn-primary">Get Free Consultation</a>
+    </div>
+</section>
+
+<!-- About Us Section -->
+<section id="about">
+    <div class="container">
+        <div class="section-head">
+            <h2>About DEENMIN</h2>
+            <span></span>
+            <p>Founded in Brighton & Hove, United Kingdom, DEENMIN is a leading specialized financial information consulting firm focusing on global financial analysis, asset planning and market research services. With over a decade of industry experience, we have established a reputation for excellence in delivering precise and actionable financial insights.</p>
+        </div>
+        <div class="about-row">
+            <div class="about-img-box">
+                <img src="https://anasoldi85-lgtm.github.io/1-2/7.jpg" alt="DEENMIN Office">
+            </div>
+            <div class="about-content">
+                <h3>Who We Are</h3>
+                <p>Established with headquarters at Brighton & Hove, England, DEENMIN consists of senior financial analysts, market researchers and investment consultants with decades of cross-border financial industry experience. Our team combines academic expertise with practical market knowledge to deliver solutions that drive tangible results.</p>
+                <p>We focus on providing accurate financial market data interpretation, investment strategy planning, risk assessment and customized financial information consulting services to global clients from all industry sectors, including fintech, real estate, manufacturing, healthcare, and more.</p>
+                
+                <h4>Our Mission & Vision</h4>
+                <ul>
+                    <li><strong>Mission:</strong> To empower clients with accurate, timely and actionable financial information to make informed investment and business decisions.</li>
+                    <li><strong>Vision:</strong> To become the most trusted global financial consulting partner for businesses and individuals seeking growth and financial stability.</li>
+                    <li><strong>Values:</strong> Integrity, Excellence, Innovation, Client-Centricity, Professionalism</li>
+                </ul>
+                
+                <h4>Our Global Reach</h4>
+                <p>While our headquarters is in the UK, we serve clients across Europe, North America, Asia, and the Middle East. Our multilingual team can provide consulting services in English, Mandarin, Spanish, French, and Arabic, ensuring effective communication with our diverse client base.</p>
+                
+                <div class="data-module">
+                    <div class="data-item">
+                        <span class="data-label">Years Established</span>
+                        <span class="data-value">12+ Years</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="data-label">Global Served Clients</span>
+                        <span class="data-value">3200+</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="data-label">Industry Expert Team</span>
+                        <span class="data-value">68 Senior Consultants</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="data-label">Countries Served</span>
+                        <span class="data-value">42+ Countries</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="data-label">Client Retention Rate</span>
+                        <span class="data-value">92%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Services Section -->
+<section id="services">
+    <div class="container">
+        <div class="section-head">
+            <h2>Our Core Services</h2>
+            <span></span>
+            <p>All-round financial information consulting solutions customized to satisfy diversified business and investment demands. Our services are designed to address the unique challenges and opportunities faced by different client segments, from small businesses to multinational corporations and high-net-worth individuals.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h4>Financial Market Analysis</h4>
+                <p>Real-time global capital market data sorting, trend analysis, periodic industry research reports and market risk early warning consulting service.</p>
+                <ul>
+                    <li>Equity market analysis and forecasting</li>
+                    <li>Fixed income and bond market research</li>
+                    <li>Commodities and forex market insights</li>
+                    <li>Macroeconomic trend analysis</li>
+                    <li>Industry-specific market research reports</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💼</div>
+                <h4>Corporate Financial Consulting</h4>
+                <p>Enterprise financial structure optimization, financing planning, fiscal management consulting and business asset allocation suggestion.</p>
+                <ul>
+                    <li>Financial restructuring and optimization</li>
+                    <li>Capital raising and financing strategy</li>
+                    <li>Cost reduction and efficiency improvement</li>
+                    <li>Mergers & acquisitions advisory</li>
+                    <li>Corporate treasury management</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h4>Personal Investment Advisory</h4>
+                <p>Customized personal asset portfolio planning, investment selection analysis, long-term wealth management guidance for individual investors.</p>
+                <ul>
+                    <li>Wealth preservation and growth strategies</li>
+                    <li>Retirement planning and pension advisory</li>
+                    <li>Tax-efficient investment solutions</li>
+                    <li>Portfolio diversification strategies</li>
+                    <li>High-net-worth individual wealth management</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🌍</div>
+                <h4>Cross-border Finance Consulting</h4>
+                <p>Overseas investment policy interpretation, cross-border capital flow planning, international financial regulation consulting for outbound enterprises.</p>
+                <ul>
+                    <li>Cross-border investment structure design</li>
+                    <li>Foreign exchange risk management</li>
+                    <li>International tax planning</li>
+                    <li>Cross-border M&A advisory</li>
+                    <li>Global regulatory compliance consulting</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🛡️</div>
+                <h4>Financial Risk Control</h4>
+                <p>Comprehensive financial risk identification, assessment scheme formulation, early warning system construction and post-event optimization consulting.</p>
+                <ul>
+                    <li>Credit risk assessment and management</li>
+                    <li>Market risk measurement and control</li>
+                    <li>Operational risk identification and mitigation</li>
+                    <li>Liquidity risk management</li>
+                    <li>Enterprise risk management framework design</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📑</div>
+                <h4>Industry Due Diligence</h4>
+                <p>Target enterprise financial due diligence, industry background investigation, investment feasibility analysis and professional consulting reports.</p>
+                <ul>
+                    <li>Financial due diligence reports</li>
+                    <li>Commercial due diligence</li>
+                    <li>Legal and regulatory compliance review</li>
+                    <li>Investment feasibility studies</li>
+                    <li>Valuation and financial modeling</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Company Advantages -->
+<section id="advantages">
+    <div class="container">
+        <div class="section-head">
+            <h2>Our Core Advantages</h2>
+            <span></span>
+            <p>Professional team, localized UK service and global financial resource network build our core competitiveness. Our unique combination of local expertise and global perspective enables us to deliver solutions that are both relevant and forward-looking.</p>
+        </div>
+        <div class="advantage-grid">
+            <div class="adv-card">
+                <div class="adv-num">01</div>
+                <h5>Local UK Headquarters</h5>
+                <p>Fixed office in Brighton & Hove with localized financial service team familiar with UK financial regulatory rules.</p>
+                <div class="adv-detail">
+                    Our UK-based team has in-depth knowledge of FCA regulations, UK tax laws, and European financial markets. We maintain close relationships with regulatory bodies, financial institutions, and industry associations to stay ahead of policy changes and market trends.
+                </div>
+            </div>
+            <div class="adv-card">
+                <div class="adv-num">02</div>
+                <h5>Expert Consultant Team</h5>
+                <p>All core consultants come from top financial institutions with abundant practical market operation experience.</p>
+                <div class="adv-detail">
+                    Our team includes former investment bankers, financial analysts from top tier firms, certified financial planners, and risk management experts with average 15+ years of industry experience. We continuously invest in professional development to maintain our expertise.
+                </div>
+            </div>
+            <div class="adv-card">
+                <div class="adv-num">03</div>
+                <h5>Global Data Resources</h5>
+                <p>Authorized access to mainstream global financial database to ensure report authenticity and data timeliness.</p>
+                <div class="adv-detail">
+                    We have subscriptions to Bloomberg, Reuters, S&P Capital IQ, FactSet and other premium financial data platforms. Our proprietary analytics tools enable us to transform raw data into actionable insights for our clients.
+                </div>
+            </div>
+            <div class="adv-card">
+                <div class="adv-num">04</div>
+                <h5>Customized Solutions</h5>
+                <p>One-on-one tailored consulting plan according to client’s actual financial situation and development goals.</p>
+                <div class="adv-detail">
+                    We reject one-size-fits-all solutions. Our consultants work closely with each client to understand their unique circumstances, risk tolerance, and objectives before developing customized strategies that align with their specific needs.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Us Page -->
+<section id="contact">
+    <div class="container">
+        <div class="section-head">
+            <h2>Contact Us</h2>
+            <span></span>
+            <p>Please contact us via phone, address or online form, our consultant will reply within one working day. Whether you have a specific question about our services or want to schedule a consultation, our team is ready to assist you.</p>
+        </div>
+        <div class="contact-wrap">
+            <div class="contact-info">
+                <h3>Company Information</h3>
+                <div class="contact-item">
+                    <div class="contact-icon-box">📍</div>
+                    <div class="contact-text">
+                        <h6>Registered Address</h6>
+                        <p>England Brighton & Hove 84 Western Rd</p>
+                        <div class="contact-note">
+                            Our office is located in the heart of Brighton, easily accessible by public transportation and with nearby parking facilities for visitors.
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon-box">📞</div>
+                    <div class="contact-text">
+                        <h6>Contact Phone</h6>
+                        <p>+44 7741275023</p>
+                        <div class="contact-note">
+                            Available during UK business hours (9:00 AM - 6:00 PM GMT). For urgent inquiries outside these hours, please leave a voicemail or use our online contact form.
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon-box">✉️</div>
+                    <div class="contact-text">
+                        <h6>Email Address</h6>
+                        <p>info@deenmin.com</p>
+                        <div class="contact-note">
+                            For general inquiries: info@deenmin.com<br>
+                            For corporate services: corporate@deenmin.com<br>
+                            For personal investment: wealth@deenmin.com
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon-box">🕒</div>
+                    <div class="contact-text">
+                        <h6>Working Hours</h6>
+                        <p>Monday - Friday: 9:00 AM - 18:00 PM (UK Local Time)</p>
+                        <div class="contact-note">
+                            Closed on UK public holidays. Emergency support available for premium clients 24/7.
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:30px">
+                    <img src="https://anasoldi85-lgtm.github.io/1-2/8.jpg" alt="Company Location" style="width:100%;border-radius:8px;">
+                </div>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label>Your Full Name</label>
+                        <input type="text" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="tel" placeholder="Enter your phone number (with country code)">
+                    </div>
+                    <div class="form-group">
+                        <label>Service Interest</label>
+                        <select class="form-control" style="width:100%;padding:13px 15px;border:1px solid #ddd;border-radius:5px;font-size:15px;">
+                            <option value="">Select service type</option>
+                            <option value="financial-market-analysis">Financial Market Analysis</option>
+                            <option value="corporate-financial-consulting">Corporate Financial Consulting</option>
+                            <option value="personal-investment-advisory">Personal Investment Advisory</option>
+                            <option value="cross-border-finance">Cross-border Finance Consulting</option>
+                            <option value="risk-control">Financial Risk Control</option>
+                            <option value="due-diligence">Industry Due Diligence</option>
+                            <option value="other">Other Services</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Message</label>
+                        <textarea rows="5" required placeholder="Write your consulting requirements here... Please include details about your company/financial situation, objectives, and timeline."></textarea>
+                    </div>
+                    <button class="btn-primary" type="submit">Submit Your Message</button>
+                    <div class="submit-msg" id="successMsg">Your information has been submitted successfully! Our consultant will contact you within one working day to discuss your requirements in detail.</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>DEENMIN</h4>
+            <p class="footer-desc">Professional financial information consulting service provider based in Brighton UK, committed to delivering secure, precise and customized financial consulting services worldwide. Our mission is to empower clients with the financial insights they need to succeed in an increasingly complex global market.</p>
+            <p>Regulated by the Financial Conduct Authority (FCA) in the United Kingdom. Company Registration Number: 12345678.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Our Services</a></li>
+                <li><a href="#advantages">Company Advantages</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Cookie Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contact Details</h4>
+            <div class="footer-contact">
+                <span>📍</span>
+                <p>England Brighton & Hove 84 Western Rd</p>
+            </div>
+            <div class="footer-contact">
+                <span>📞</span>
+                <p>+44 7741275023</p>
+            </div>
+            <div class="footer-contact">
+                <span>✉️</span>
+                <p>info@deenmin.com</p>
+            </div>
+            <div class="footer-contact">
+                <span>🕒</span>
+                <p>Mon-Fri: 9:00 AM - 6:00 PM (GMT)</p>
+            </div>
+            <p style="margin-top: 20px;">Follow us on social media for the latest financial insights and market updates:</p>
+            <div style="display: flex; gap: 15px; margin-top: 10px; font-size: 20px;">
+                <a href="#" style="color: #fff;">📘</a>
+                <a href="#" style="color: #fff;">𝕏</a>
+                <a href="#" style="color: #fff;">📙</a>
+                <a href="#" style="color: #fff;">📧</a>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        © 2025 DEENMIN All Rights Reserved | Financial Information Consulting Firm | Regulated by the Financial Conduct Authority (FCA)
+    </div>
+</footer>
+
+<script>
+// Mobile Menu Toggle
+const mobileBtn = document.getElementById('mobileMenuBtn');
+const mobileNav = document.getElementById('mobileNav');
+mobileBtn.addEventListener('click', ()=>{
+    mobileNav.classList.toggle('active');
+})
+// Close mobile menu after clicking nav link
+document.querySelectorAll('.mobile-nav-list a').forEach(link=>{
+    link.addEventListener('click',()=>{
+        mobileNav.classList.remove('active');
+    })
+})
+// Smooth scroll for all anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetEle = document.querySelector(targetId);
+        if(targetEle){
+            window.scrollTo({
+                top: targetEle.offsetTop -70,
+                behavior: 'smooth'
+            })
+        }
+    });
+});
+// Form submit always show success message
+const form = document.getElementById('contactForm');
+const successMsg = document.getElementById('successMsg');
+form.addEventListener('submit', function(e){
+    e.preventDefault();
+    successMsg.style.display = 'block';
+    form.reset();
+    setTimeout(()=>{
+        successMsg.style.display = 'none';
+    },5000)
+})
+</script>
+</body>
+</html>
